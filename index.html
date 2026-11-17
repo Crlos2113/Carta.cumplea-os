@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- CAMBIA AQUÍ EL TÍTULO DE LA PESTAÑA DEL NAVEGADOR -->
+<title>¡Feliz Cumpleaños, Mi Amor! ❤️</title>
+
+<!-- Tailwind CSS para el diseño moderno y responsivo -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Google Fonts: Playfair Display (elegante) y Plus Jakarta Sans (moderna y legible) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- Librería de Confeti para la celebración -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+/* Configuración de fuentes personalizadas */
+body {
+font-family: 'Plus Jakarta Sans', sans-serif;
+overflow-x: hidden;
+}
+.font-serif-elegant {
+font-family: 'Playfair Display', serif;
+}
+
+/* Fondo romántico con degradado suave animado */
+.romantic-bg {
+background: linear-gradient(-45deg, #fff1f2, #ffe4e6, #fef3c7, #fce7f3);
+background-size: 400% 400%;
+animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+0% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
+}
+
+/* Animación de latido suave para el corazón principal */
+@keyframes heartbeat {
+0%, 100% { transform: scale(1); }
+15% { transform: scale(1.15); }
+30% { transform: scale(1); }
+45% { transform: scale(1.15); }
+60% { transform: scale(1); }
+}
+.animate-heartbeat {
+animation: heartbeat 2.5s infinite;
+}
+
+/* Animación de partículas flotantes en el fondo */
+.floating-particle {
+position: fixed;
+bottom: -50px;
+pointer-events: none;
+z-index: 1;
+animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+0% {
+transform: translateY(0) rotate(0deg) scale(0.8);
+opacity: 0;
+}
+20% {
+opacity: 0.7;
+}
+80% {
+opacity: 0.7;
+}
+100% {
+transform: translateY(-110vh) rotate(360deg) scale(1.2);
+opacity: 0;
+}
+}
+
+/* Efecto cristal (Glassmorphism) */
+.glass-card {
+background: rgba(255, 255, 255, 0.85);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+/* Transiciones suaves para abrir la carta */
+.fade-transition {
+transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+</style>
+</head>
+<body class="romantic-bg min-h-screen flex items-center justify-center p-4 sm:p-6 relative text-rose-950 selection:bg-rose-200 selection:text-rose-900">
+
+<!-- Contenedor para corazones flotantes del fondo -->
+<div id="floating-container" aria-hidden="true"></div>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<main class="w-full max-w-lg z-10 relative">
+
+<!-- =========================================================
+PANTALLA 1: PORTADA / SOBRE CERRADO (Antes de abrir)
+========================================================= -->
+<section id="cover-card" class="glass-card rounded-3xl shadow-2xl p-8 sm:p-10 text-center fade-transition border-rose-200/60">
+
+<!-- Icono de corazón animado -->
+<div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-tr from-white via-rose-100 to-rose-200 rounded-full flex items-center justify-center shadow-lg shadow-rose-200 animate-heartbeat border border-white/80">
+<svg class="w-10 h-10 text-rose-500 fill-current" viewBox="0 0 24 24">
+<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+</svg>
+</div>
+
+<!-- Etiqueta superior -->
+<span class="inline-block px-4 py-1.5 rounded-full bg-rose-100/80 text-rose-600 text-xs font-semibold tracking-widest uppercase mb-4">
+Un detalle especial para ti
+</span>
+
+<!-- Título de portada -->
+<h1 class="font-serif-elegant text-3xl sm:text-4xl font-bold text-rose-900 mb-3 leading-tight">
+Hoy es un día muy especial...
+</h1>
+
+<p class="text-rose-700/80 text-sm sm:text-base mb-8 leading-relaxed">
+He preparado este pequeño rincón con mucho cariño para celebrar tu vida y todo lo que significas para mí.
+</p>
+
+<!-- Botón interactivo para abrir la carta -->
+<button id="open-btn" onclick="openSurprise()" class="group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 text-base font-semibold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 rounded-2xl shadow-lg shadow-rose-300/60 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer">
+<span>Abrir sorpresa</span>
+<svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+</svg>
+</button>
+</section>
+
+<!-- =========================================================
+PANTALLA 2: CARTA DE CUMPLEAÑOS (Se muestra al abrir)
+========================================================= -->
+<section id="letter-card" class="hidden opacity-0 scale-95 glass-card rounded-3xl shadow-2xl p-6 sm:p-10 fade-transition border-rose-200/80">
+
+<!-- Encabezado de la carta -->
+<div class="text-center border-b border-rose-200/60 pb-6 mb-6">
+<p class="text-xs font-semibold tracking-widest uppercase text-amber-600 mb-2">
+✨ ¡Felicidades en tu día! ✨
+</p>
+
+<h2 class="font-serif-elegant text-3xl sm:text-4xl font-bold text-rose-900 leading-tight">
+¡Feliz Cumpleaños, <br>
+<!-- ========================================== -->
+<!-- CAMBIA AQUÍ EL NOMBRE DE TU NOVIA -->
+<!-- ========================================== -->
+<span class="bg-gradient-to-r from-rose-600 to-amber-600 bg-clip-text text-transparent">Mi Vida</span>!
+</h2>
+</div>
+
+<!-- Cuerpo del mensaje romántico -->
+<div class="space-y-4 text-rose-900/90 text-sm sm:text-base leading-relaxed font-normal">
+
+<!-- ========================================== -->
+<!-- ESCRIBE TU MENSAJE AQUÍ (Párrafo 1) -->
+<!-- ========================================== -->
+<p>
+Hoy celebro el día en que nació la persona que ilumina mis días con solo una sonrisa. Gracias por ser mi todo, mi alegría y mi lugar favorito en el mundo.
+</p>
+
+<!-- ========================================== -->
+<!-- ESCRIBE TU MENSAJE AQUÍ (Párrafo 2) -->
+<!-- ========================================== -->
+<p>
+Deseo que este nuevo año de vida esté lleno de sueños cumplidos, aventuras inolvidables, salud y momentos tan hermosos como tú. Prometo estar a tu lado para celebrar cada uno de tus logros y abrazarte en cada paso.
+</p>
+
+<!-- ========================================== -->
+<!-- ESCRIBE TU MENSAJE AQUÍ (Párrafo 3) -->
+<!-- ========================================== -->
+<p class="font-medium text-rose-800">
+Te quiero muchísimo hoy y siempre. ¡Disfruta tu día al máximo, mi preciosa! 🥂🎂
+</p>
+
+</div>
+
+<!-- Firma -->
+<div class="mt-6 pt-4 border-t border-rose-100 text-right">
+<p class="text-xs text-rose-500 uppercase tracking-wider">Con todo mi amor,</p>
+<!-- ========================================== -->
+<!-- CAMBIA AQUÍ TU NOMBRE O APODO CARIÑOSO -->
+<!-- ========================================== -->
+<p class="font-serif-elegant italic text-xl font-bold text-rose-800 mt-0.5">
+ Carlitos ❤️
+</p>
+</div>
+
+<!-- =========================================================
+CAJA DE FRASE ESPECIAL (Aparece al tocar el botón final)
+========================================================= -->
+<div id="special-quote-box" class="hidden mt-6 p-4 rounded-2xl bg-gradient-to-r from-rose-100/90 to-amber-100/90 border border-rose-200 text-center transform transition-all duration-500 scale-95 opacity-0">
+<!-- ========================================== -->
+<!-- CAMBIA AQUÍ LA FRASE ESPECIAL SORPRESA -->
+<!-- ========================================== -->
+<p class="font-serif-elegant italic text-base sm:text-lg text-rose-900 font-medium">
+"Si volviera a nacer, te volvería a elegir a ti en todas mis vidas. ¡Feliz vuelta al sol, mi amor!" ✨💖
+</p>
+</div>
+
+<!-- Botón final de celebración -->
+<div class="mt-8 text-center">
+<button id="celebrate-btn" onclick="triggerCelebration()" class="w-full py-3.5 px-6 rounded-2xl bg-rose-900 hover:bg-rose-800 text-amber-100 font-medium text-sm sm:text-base shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]">
+<span>✨ Pedir un deseo y celebrar ✨</span>
+</button>
+</div>
+
+</section>
+
+</main>
+
+<!-- =========================================================
+LÓGICA DE INTERACTIVIDAD Y ANIMACIONES (JAVASCRIPT)
+========================================================= -->
+<script>
+// 1. Generar corazones y destellos flotantes suavemente en el fondo
+function createFloatingParticle() {
+const container = document.getElementById('floating-container');
+const particle = document.createElement('div');
+
+// Emojis románticos aleatorios
+const icons = ['🤍', '💖', '✨', '🌸', '💗'];
+particle.innerText = icons[Math.floor(Math.random() * icons.length)];
+particle.className = 'floating-particle';
+
+// Posición horizontal, tamaño y duración aleatorios
+particle.style.left = Math.random() * 100 + 'vw';
+particle.style.fontSize = (Math.random() * 14 + 12) + 'px';
+particle.style.animationDuration = (Math.random() * 6 + 7) + 's';
+
+container.appendChild(particle);
+
+// Eliminar el elemento cuando termina su animación para no saturar la memoria
+setTimeout(() => {
+particle.remove();
+}, 13000);
+}
+
+// Crear una partícula cada 900 milisegundos
+setInterval(createFloatingParticle, 900);
+
+// 2. Función para abrir la tarjeta sorpresa
+function openSurprise() {
+const coverCard = document.getElementById('cover-card');
+const letterCard = document.getElementById('letter-card');
+
+// Lanzar una pequeña ráfaga de confeti al abrir
+launchConfettiBurst();
+
+// Ocultar suavemente la portada
+coverCard.classList.add('opacity-0', 'scale-95');
+
+setTimeout(() => {
+coverCard.classList.add('hidden');
+
+// Mostrar la carta con animación
+letterCard.classList.remove('hidden');
+// Pequeño retraso para que la transición CSS se active correctamente
+requestAnimationFrame(() => {
+letterCard.classList.remove('opacity-0', 'scale-95');
+letterCard.classList.add('opacity-100', 'scale-100');
+});
+}, 400);
+}
+
+// 3. Función del botón final: Lluvia de corazones/confeti + Frase especial
+function triggerCelebration() {
+const quoteBox = document.getElementById('special-quote-box');
+const celebrateBtn = document.getElementById('celebrate-btn');
+
+// Mostrar la caja con la frase especial si estaba oculta
+if (quoteBox.classList.contains('hidden')) {
+quoteBox.classList.remove('hidden');
+requestAnimationFrame(() => {
+quoteBox.classList.remove('scale-95', 'opacity-0');
+quoteBox.classList.add('scale-100', 'opacity-100');
+});
+}
+
+// Cambiar el texto del botón para invitar a seguir celebrando
+celebrateBtn.innerHTML = '<span>🎉 ¡Lluvia de amor! (Toca de nuevo) 🎉</span>';
+
+// Lanzar lluvia intensa de confeti dorado y rosado
+launchConfettiRain();
+
+// Lanzar una ráfaga extra de corazones flotantes
+for (let i = 0; i < 15; i++) {
+setTimeout(createFloatingParticle, i * 100);
+}
+}
+
+// Efecto de confeti al abrir la carta
+function launchConfettiBurst() {
+if (typeof confetti === 'function') {
+confetti({
+particleCount: 60,
+spread: 70,
+origin: { y: 0.6 },
+colors: ['#f43f5e', '#fb7185', '#fbbf24', '#f59e0b', '#ffffff']
+});
+}
+}
+
+// Efecto de lluvia de confeti desde ambos lados para el botón final
+function launchConfettiRain() {
+if (typeof confetti !== 'function') return;
+
+const duration = 2500;
+const end = Date.now() + duration;
+const colors = ['#e11d48', '#fb7185', '#f59e0b', '#fcd34d', '#fbcfe8'];
+
+(function frame() {
+confetti({
+particleCount: 4,
+angle: 60,
+spread: 55,
+origin: { x: 0 },
+colors: colors
+});
+confetti({
+particleCount: 4,
+angle: 120,
+spread: 55,
+origin: { x: 1 },
+colors: colors
+});
+
+if (Date.now() < end) {
+requestAnimationFrame(frame);
+}
+}());
+}
+</script>
+</body>
+</html>
